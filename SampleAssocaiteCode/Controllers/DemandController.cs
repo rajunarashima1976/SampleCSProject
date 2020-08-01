@@ -21,6 +21,8 @@ namespace SampleAssocaiteCode.Controllers
             _demandService = demandService;
             //_mapper = mapper;
             _mapper = mapper;
+            int x = 100;
+            int y = 200;
             
         }
 
