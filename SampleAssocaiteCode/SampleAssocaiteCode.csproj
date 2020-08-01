@@ -27,10 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="DemandService\" />
-    <Folder Include="EntityModel\" />
     <Folder Include="Mappings\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 
