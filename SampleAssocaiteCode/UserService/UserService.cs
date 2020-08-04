@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using SampleAssocaiteCode.EntityModel;
 using SampleAssocaiteCode.Models;
 
@@ -9,12 +11,12 @@ namespace SampleAssocaiteCode.UserService
 {
     public class UserService:IUserService
     {
-        private readonly TalmateDbContext _talmateDbContext;
-        private readonly AppSettings _appSettings;
+        private readonly TalmateDBContext _talmateDbContext;
+        //private readonly AppSettings _appSettings;
 
-        public UserService(IOptions<AppSettings> appSettings, TalmateDbContext talmateDbContext)
+        public UserService(TalmateDBContext talmateDbContext)
         {
-            _appSettings = appSettings.Value;
+            
             _talmateDbContext = talmateDbContext;
         }
 
