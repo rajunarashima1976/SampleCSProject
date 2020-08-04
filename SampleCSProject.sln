@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProject
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAssocaiteCode", "SampleAssocaiteCode\SampleAssocaiteCode.csproj", "{568A1CE0-AE84-40EA-BDFD-D5B41F6D7EBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleCSProjectTest", "SampleCSProjectTest\SampleCSProjectTest.csproj", "{B72C189B-6BBB-4D54-AEF2-3C83920F90A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleCSProjectTest", "SampleCSProjectTest\SampleCSProjectTest.csproj", "{B72C189B-6BBB-4D54-AEF2-3C83920F90A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
