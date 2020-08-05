@@ -1,0 +1,128 @@
+﻿@model List<SampleCSWebProject.Models.Recommendation>
+@{
+    ViewData["Title"] = "Seek";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Seek Recommendation</h2>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $('#btnSubmitRecommendation').click(function () {
+            var recommendation = [];
+            var data;
+            $('#skillsListTable').find('tr').each(function () {
+                var row = $(this);
+                if (row.find('input[type="checkbox"]').is(':checked')) {
+                    data = {
+                        FirstName: row.find("td:eq(0)").text(),
+                        LastName: row.find("td:eq(1)").text(),
+                        PrimarySkills: row.find("td:eq(2)").text(),
+                        SecondarySkills: row.find("td:eq(3)").text(),
+                        Experience: row.find("td:eq(4)").text(),
+                        Location: row.find("td:eq(5)").text(),
+                        IsActive: true
+                    };
+                    recommendation.push(data);
+                }
+            });
+
+            // Calling post action method from recommendation controller.
+            $.post({
+                url: '/Recommendation/RouteRecommendation',
+                data: { "recommendation": recommendation },
+                cache: false
+            }).then(function (response) {
+                $('#message').text(response);
+            }).fail(function (jqXHR) {
+                $('#message').text("Unable to route recommendation!");
+            });
+
+        });
+    });
+
+
+
+
+    function searchSecondarySkills() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("skillsListTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+
+</script>
+
+<input type="text" id="myInput" onkeyup="searchSecondarySkills()" placeholder="Search Secondary skills .......">
+<table class="table table-bordered" id="skillsListTable">
+    <thead class="grey lighten-2">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Primary Skills</th>
+            <th scope="col">Secondary Skills</th>
+            <th scope="col">Experience</th>
+            <th scope="col">Location</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                int count = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="col"><input type="checkbox"></th>
+                        <th scope="row">@count</th>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.PrimarySkills</td>
+                        <td>@item.SecondarySkills</td>
+                        <td>@item.Experience</td>
+                        <td>@item.Location</td>
+                        <td style="display:none;">@item.Id</td>
+                    </tr>
+                    count++;
+                }
+            }
+        }
+
+
+    </tbody>
+</table>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <button class="btn btn-success" type="button" id="btnSubmitRecommendation" title="Submit recommendation"><span class="glyphicon glyphicon-thumbs-up"></span>  Submit Recommendation</button>
+            </div>
+            <div class="col-md-9 form-group">
+                <p class="text-success" id="message"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
