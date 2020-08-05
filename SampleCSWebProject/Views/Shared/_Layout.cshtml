@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,42 +9,197 @@
     <title>@ViewData["Title"] - SampleCSWebProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/lib/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet" type="text/css">
+
+    <!-- MetisMenu CSS -->
+    <link href="~/css/metisMenu.min.css" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="~/css/timeline.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/css/startmin.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .adminMenuItem, .analyticsMenuItem {
+            background-color: #00245D;
+            width: 190px;
+        }
+
+            .adminMenuItem li a, .adminSubMenuItem li a, .analyticsMenuItem li a {
+                display: block;
+                color: white;
+                padding: 5px 10px;
+                font-weight: 700;
+            }
+
+        .adminSubMenuItem {
+            background-color: #00245D;
+            width: 200px;
+            top: 0px;
+            left: 100%;
+        }
+
+        #navigationmenu .open > a {
+            background-color: #00245D !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            $("#navigationmenu a:not(#navbarDemandDropdownMenuLink):not(#navbarRecommendationDropdownMenuLink)").on("click", function () {
+                $(".nav").find(".Menu").removeClass("Menu");
+                $(this).parent().addClass("Menu");
+            });
+            $("#adminMenuItem a:not(#navbarRecommendationDropdownMenuLink)").on("click", function () {
+                $(".nav").find(".Menu").removeClass("Menu");
+                $('#adminMenuItem').addClass("Menu");
+            });
+            $("#analyticsMenuItem a:not(#navbarDemandDropdownMenuLink)").on("click", function () {
+                $(".nav").find(".Menu").removeClass("Menu");
+                $('#analyticsMenuItem').addClass("Menu");
+            });
+        }
+    </script>
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SampleCSWebProject</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+        <div>
+            <div style="background-color:gainsboro">
+                <a style="text-decoration-line:none;">
+                    <img class="header-logo" src="~/images/hcl.png" />
+                </a>
+
+                <span id="lblHeader" class="header-title">
+                    Talmate Application
+                </span>
+                @{
+                    var userName = HttpContextAccessor.HttpContext.Session.GetString("UserName");
+                    var roleName = HttpContextAccessor.HttpContext.Session.GetString("RoleName");
+
+                }
+
+
+                <ul id="userDdlMenu" class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#062f54;">
+                            <i class="fa fa-user fa-fw"></i> @userName<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            @{
+                                if (string.IsNullOrEmpty(userName))
+                                {
+                                    <li><a asp-controller="Login" asp-action="Index"><i class="fa fa-sign-out fa-fw"></i> Sign In</a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-controller="Login" asp-action="LogOut"><i class="fa fa-sign-out fa-fw"></i> Sign Out</a></li>
+                                }
+                            }
+
+                        </ul>
+                    </li>
+                </ul>
             </div>
+        </div>
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" style="background-color:#00245D!important" data-toggle="collapse" data-target="#navigationmenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            @{
+                if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(roleName))
+                {
+                    <div class="collapse navbar-collapse" id="navigationmenu">
+                        <ul class="nav navbar-nav navbar-left" style="width:100%;">
+
+                            <li id="analyticsMenuItem" class="dropdown">
+                                <a class="dropdown-toggle" href="#" id="navbarDemandDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="glyphicon glyphicon-equalizer"></i><span style="margin-left:10px;"> Demand <b class="caret"></b></span>
+                                </a>
+                                <ul class="dropdown-menu analyticsMenuItem" aria-labelledby="navbarDemandDropdownMenuLink">
+                                    @{
+                                        if (string.Equals(roleName, "BM"))
+                                        {
+                                            <li><a class="dropdown-item" href="/Demand/ViewDemand"><i class="fa fa-paw"></i><span style="margin-left:5px;"> View </span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a class="dropdown-item" href="/Demand/Create"><i class="fa fa-gear"></i><span style="margin-left:5px;"> Create</span></a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+
+                            <li id="adminMenuItem" class="dropdown">
+                                <a class="dropdown-toggle" href="#" id="navbarRecommendationDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="glyphicon glyphicon-user"></i><span style="margin-left:10px;"> Recommendation <b class="caret"></b></span>
+                                </a>
+                                <ul class="dropdown-menu adminMenuItem" aria-labelledby="navbarRecommendationDropdownMenuLink">
+                                    @{
+                                        if (string.Equals(roleName, "BM"))
+                                        {
+                                            <li><a class="dropdown-item" href="/Recommendation/Seek"><i class="glyphicon glyphicon-pushpin"></i><span style="margin-left:5px;"> Seek</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a class="dropdown-item" href="/Recommendation/AcceptReject"><i class="glyphicon glyphicon-move"></i><span style="margin-left:5px;"> Accept/Reject</span></a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                }
+            }
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - SampleCSWebProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    @*<footer class="border-top footer text-muted justify-content-center">
+            <div class="container" >
+                &copy; 2020 - Talmate Application
+            </div>
+        </footer>*@
+
+    <div id="space" style="height:60px;">
+
+    </div>
+
+    <div class="footerWrap">
+        <div class="footer">
+            <div class="footerContent">
+                <p>&copy; 2020 - Talmate Application</p>
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/js/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="~/js/startmin.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
