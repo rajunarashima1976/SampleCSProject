@@ -30,7 +30,8 @@ namespace SampleCSWebProject.Controllers
             var recommendation = new List<Recommendation>();
             using (var client = new HttpClient())
             {
-                string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Recommendation + "/" + Constants.Seek + "/";
+                //string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Recommendation + "/" + Constants.Seek + "/";
+                string baseUri = "https://localhost:44326/api/recommendation/";
                 client.BaseAddress = new Uri(baseUri);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JWTToken"));
@@ -50,7 +51,8 @@ namespace SampleCSWebProject.Controllers
 
             using (var client = new HttpClient())
             {
-                string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Recommendation + "/" + Constants.RouteRecommendation + "/";
+                //string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Recommendation + "/" + Constants.RouteRecommendation + "/";
+                string baseUri = "https://localhost:44326/api/recommendation/routerecommendation/";
                 client.BaseAddress = new Uri(baseUri);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JWTToken"));

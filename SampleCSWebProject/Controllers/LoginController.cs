@@ -41,7 +41,8 @@ namespace SampleCSWebProject.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    string baseUri = _settings.ApiUrl + "/" + Constants.Token + "/";
+                    //string baseUri = _settings.ApiUrl + "/" + Constants.Token + "/";
+                    string baseUri = "https://localhost:44326/token";
                     client.BaseAddress = new Uri(baseUri);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
