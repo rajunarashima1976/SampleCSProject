@@ -1,0 +1,138 @@
+﻿@model List<SampleCSWebProject.Models.Demand>
+@{
+    ViewData["Title"] = "ViewDemand";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        // code to read selected table row cell data (values).
+        $("#skillsListTable").on('click', '.btnSelect', function () {
+            // get the current row
+            var tr = $(this).closest("tr");
+
+            $('#txtPrimarySkills').val(tr.find("td:eq(0)").text());
+            $('#txtSecondarySkills').val(tr.find("td:eq(1)").text());
+            $('#txtStartByDate').val(tr.find("td:eq(2)").text());
+            $('#txtExperience').val(tr.find("td:eq(3)").text());
+            $('#txtLocation').val(tr.find("td:eq(4)").text());
+        });
+    });
+
+    function searchSkills() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("skillsListTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+</script>
+
+
+<h2>View Demand</h2>
+
+
+<input type="text" id="myInput" onkeyup="searchSkills()" placeholder="Search skill .......">
+<table class="table table-bordered" id="skillsListTable">
+    <thead class="grey lighten-2">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Skill</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                int count = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@item.PrimarySkills</td>
+                        <td style="display:none;">@item.SecondarySkills</td>
+                        <td style="display:none;">@item.Start_By_Date</td>
+                        <td style="display:none;">@item.Experience</td>
+                        <td style="display:none;">@item.Location</td>
+                        <td><button type="button" title="Show Details" class="btn btn-primary btnSelect"><span class="glyphicon glyphicon-book"></span></button></td>
+                    </tr>
+                    count++;
+                }
+            }
+        }
+
+
+    </tbody>
+</table>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa fa-info-circle fa-fw"></i> Demand Details
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>Primary Skills</label>
+            </div>
+            <div class="col-md-9 form-group">
+                <input type="text" class="form-control form-control-sm" id="txtPrimarySkills" readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>Secondary Skills</label>
+            </div>
+            <div class="col-md-9 form-group">
+                <input type="text" class="form-control form-control-sm" id="txtSecondarySkills" readonly>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>Start By Date</label>
+            </div>
+            <div class="col-md-9 form-group">
+                <input type="text" class="form-control form-control-sm" id="txtStartByDate" readonly>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>Experience</label>
+            </div>
+            <div class="col-md-9 form-group">
+                <input type="text" class="form-control form-control-sm" id="txtExperience" readonly>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <label>Location</label>
+            </div>
+            <div class="col-md-9 form-group">
+                <input type="text" class="form-control form-control-sm" id="txtLocation" readonly>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

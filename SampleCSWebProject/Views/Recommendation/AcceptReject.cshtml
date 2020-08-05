@@ -1,0 +1,101 @@
+﻿@model List<SampleCSWebProject.Models.Recommendation>
+@{
+    ViewData["Title"] = "AcceptReject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Accept Recommendation</h2>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // code to read selected table row cell data (values).
+        $("#skillsListTable").on('click', '.btnSelectAccept', function () {
+            // get the current row
+            var tr = $(this).closest("tr");
+
+            $.post({
+                url: '/Recommendation/Accept',
+                data: { "Id": tr.find("td:eq(0)").text() },
+                cache: false
+            }).then(function (response) {
+                $('#message').text(response);
+            }).fail(function (jqXHR) {
+                $('#message').text("Unable to accept recommendation!");
+            });
+        });
+
+
+
+        // code to read selected table row cell data (values).
+        $("#skillsListTable").on('click', '.btnSelectReject', function () {
+            // get the current row
+            var tr = $(this).closest("tr");
+
+            $.post({
+                url: '/Recommendation/Reject',
+                data: { "Id": tr.find("td:eq(0)").text() },
+                cache: false
+            }).then(function (response) {
+                $('#message').text(response);
+            }).fail(function (jqXHR) {
+                $('#message').text("Unable to reject recommendation!");
+            });
+        });
+
+    });
+
+</script>
+<table class="table table-bordered" id="skillsListTable">
+    <thead class="grey lighten-2">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Primary Skills</th>
+            <th scope="col">Secondary Skills</th>
+            <th scope="col">Experience</th>
+            <th scope="col">Location</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                int count = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td style="display:none;">@item.Id</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.PrimarySkills</td>
+                        <td>@item.SecondarySkills</td>
+                        <td>@item.Experience</td>
+                        <td>@item.Location</td>
+                        <td><button type="button" title="Accept" class="btn btn-success btnSelectAccept"><span class="glyphicon glyphicon-ok"></span></button></td>
+                        <td><button type="button" title="Reject" class="btn btn-danger btnSelectReject"><span class="glyphicon glyphicon-remove-sign"></span></button></td>
+                    </tr>
+                    count++;
+                }
+            }
+        }
+
+
+    </tbody>
+</table>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <p class="text-success" id="message"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
