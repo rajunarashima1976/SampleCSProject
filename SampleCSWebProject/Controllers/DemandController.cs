@@ -24,12 +24,10 @@ namespace SampleCSWebProject.Controllers
             _mapper = mapper;
             _settings = settings.Value;
         }
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return await Task.FromResult(View());
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Demand demand)
@@ -65,6 +63,7 @@ namespace SampleCSWebProject.Controllers
 
             return await Task.FromResult(View());
         }
+
 
 
         [HttpGet]
