@@ -24,6 +24,7 @@ namespace SampleCSWebProject.Controllers
             _mapper = mapper;
             _settings = settings.Value;
         }
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return await Task.FromResult(View());
@@ -65,7 +66,6 @@ namespace SampleCSWebProject.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<IActionResult> ViewDemand()
         {
@@ -84,6 +84,7 @@ namespace SampleCSWebProject.Controllers
             }
             return await Task.FromResult(View(demand));
         }
+
 
 
     }
