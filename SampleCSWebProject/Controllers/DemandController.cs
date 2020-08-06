@@ -67,9 +67,7 @@ namespace SampleCSWebProject.Controllers
             return await Task.FromResult(View());
         }
 
-            return await Task.FromResult(View());
-        }
-
+          
 
         [HttpGet]
         public async Task<IActionResult> ViewDemand()
