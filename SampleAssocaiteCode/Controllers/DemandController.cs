@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -39,6 +40,7 @@ namespace SampleAssocaiteCode.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "BM")]
         public async Task<IActionResult> Get()
         {
             if (!ModelState.IsValid)
@@ -52,6 +54,7 @@ namespace SampleAssocaiteCode.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "PM")]
         public async Task<IActionResult> Post([FromBody] Demand demand)
         {
             if (!ModelState.IsValid)
