@@ -5,25 +5,35 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using SampleCSWebProject.Comman;
 using SampleCSWebProject.Models;
 using SampleCSWebProject.ModelsDTO;
+using SampleCSWebProject.Comman;
+using Microsoft.AspNetCore.Http;
 
 namespace SampleCSWebProject.Controllers
 {
     public class DemandController : Controller
     {
         private readonly IMapper _mapper;
-        private AppSettings _settings;
-        public DemandController(IMapper mapper, IOptions<AppSettings> settings)
+        private SampleAssocaiteCode.Common.AppSettings _settings;
+        private IMapper object1;
+        private IOptions<AppSettings> object2;
+
+        public DemandController(IMapper mapper, IOptions<SampleAssocaiteCode.Common.AppSettings> settings)
         {
             _mapper = mapper;
             _settings = settings.Value;
         }
+
+        public DemandController(IMapper object1, IOptions<AppSettings> object2)
+        {
+            this.object1 = object1;
+            this.object2 = object2;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -38,8 +48,8 @@ namespace SampleCSWebProject.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Demand + "/";
-                    
+                    //string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Demand + "/";
+                    string baseUri = "https://localhost:44326/api/demand/";
                     client.BaseAddress = new Uri(baseUri);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JWTToken"));
@@ -72,8 +82,8 @@ namespace SampleCSWebProject.Controllers
             var demand = new List<Demand>();
             using (var client = new HttpClient())
             {
-                string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Demand + "/";
-                
+                //string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Demand + "/";
+                string baseUri = "https://localhost:44326/api/demand/";
                 client.BaseAddress = new Uri(baseUri);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JWTToken"));

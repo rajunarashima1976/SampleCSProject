@@ -5,6 +5,7 @@ using Moq;
 using NUnit.Framework;
 using SampleCSWebProject.Comman;
 using SampleCSWebProject.Controllers;
+using SampleCSWebProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,10 +14,10 @@ using System.Threading.Tasks;
 namespace SampleCSWebProjectTest
 {
     public class DemandControllerTests
-    { 
-    private Mock<IOptions<AppSettings>> _mockAppSettingRepository;
-    private Mock<IMapper> _mockMapperRepository;
-    private DemandController _controller;
+    {
+        private Mock<IOptions<AppSettings>> _mockAppSettingRepository;
+        private Mock<IMapper> _mockMapperRepository;
+        private DemandController _controller;
 
         [SetUp]
         public void Setup()
