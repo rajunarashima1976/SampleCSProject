@@ -39,7 +39,7 @@ namespace SampleCSWebProject.Controllers
                 using (var client = new HttpClient())
                 {
                     string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Demand + "/";
-                    //string baseUri = "https://localhost:44326/api/demand/";
+                    
                     client.BaseAddress = new Uri(baseUri);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JWTToken"));
@@ -73,7 +73,7 @@ namespace SampleCSWebProject.Controllers
             using (var client = new HttpClient())
             {
                 string baseUri = _settings.ApiUrl + "/" + Constants.API + "/" + Constants.Demand + "/";
-                //string baseUri = "https://localhost:44326/api/demand/";
+                
                 client.BaseAddress = new Uri(baseUri);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JWTToken"));
