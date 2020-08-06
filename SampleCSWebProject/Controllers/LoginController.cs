@@ -10,8 +10,8 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 //using SampleAssocaiteCode.Comman;
 //using SampleAssocaiteCode.Common;
-using SampleAssocaiteCode.EntityModel;
-using SampleAssocaiteCode.Models;
+using SampleCSWebProject.ModelsDTO;
+using SampleCSWebProject.Models;
 using SampleCSWebProject.Comman;
 
 namespace SampleCSWebProject.Controllers
