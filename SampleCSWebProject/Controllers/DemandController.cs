@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using SampleAssocaiteCode.EntityModel;
+using SampleCSWebProject.Models;
 using SampleCSWebProject.Comman;
 
 namespace SampleCSWebProject.Controllers
