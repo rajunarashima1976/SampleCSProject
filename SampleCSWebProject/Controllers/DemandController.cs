@@ -28,6 +28,7 @@ namespace SampleCSWebProject.Controllers
         {
             return await Task.FromResult(View());
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Demand demand)
@@ -83,5 +84,7 @@ namespace SampleCSWebProject.Controllers
             }
             return await Task.FromResult(View(demand));
         }
+
+
     }
 }
