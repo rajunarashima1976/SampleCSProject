@@ -18,20 +18,12 @@ namespace SampleCSWebProject.Controllers
     public class DemandController : Controller
     {
         private readonly IMapper _mapper;
-        private SampleAssocaiteCode.Common.AppSettings _settings;
-        private IMapper object1;
-        private IOptions<AppSettings> object2;
+        private AppSettings _settings;
 
-        public DemandController(IMapper mapper, IOptions<SampleAssocaiteCode.Common.AppSettings> settings)
+        public DemandController(IMapper mapper, IOptions<AppSettings> settings)
         {
             _mapper = mapper;
             _settings = settings.Value;
-        }
-
-        public DemandController(IMapper object1, IOptions<AppSettings> object2)
-        {
-            this.object1 = object1;
-            this.object2 = object2;
         }
 
         [HttpGet]
