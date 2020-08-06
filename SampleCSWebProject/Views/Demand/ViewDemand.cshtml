@@ -65,15 +65,15 @@
                 int count = 1;
                 foreach (var item in Model)
                 {
-                    <tr>
-                        <th scope="row">@count</th>
-                        <td>@item.PrimarySkills</td>
-                        <td style="display:none;">@item.SecondarySkills</td>
-                        <td style="display:none;">@item.Start_By_Date</td>
-                        <td style="display:none;">@item.Experience</td>
-                        <td style="display:none;">@item.Location</td>
-                        <td><button type="button" title="Show Details" class="btn btn-primary btnSelect"><span class="glyphicon glyphicon-book"></span></button></td>
-                    </tr>
+            <tr>
+                <th scope="row">@count</th>
+                <td>@item.PrimarySkills</td>
+                <td style="display:none;">@item.SecondarySkills</td>
+                <td style="display:none;">@item.Start_By_Date</td>
+                <td style="display:none;">@item.Experience</td>
+                <td style="display:none;">@item.Location</td>
+                <td><button type="button" title="Show Details" class="btn btn-primary btnSelect"><span class="glyphicon glyphicon-book"></span></button></td>
+            </tr>
                     count++;
                 }
             }
