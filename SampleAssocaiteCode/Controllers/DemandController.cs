@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using SampleAssocaiteCode.Common;
 using SampleAssocaiteCode.DemandService;
 using SampleAssocaiteCode.EntityModel;
 
@@ -16,6 +18,9 @@ namespace SampleAssocaiteCode.Controllers
     {
         private readonly IDemandService _demandService;
         private readonly IMapper _mapper;
+        private IMapper object1;
+        private IOptions<AppSettings> object2;
+
         public DemandController(IDemandService demandService, IMapper mapper)
         {
             _demandService = demandService;
@@ -25,6 +30,12 @@ namespace SampleAssocaiteCode.Controllers
             int y = 200;
             int z = 300;
             
+        }
+
+        public DemandController(IMapper object1, IOptions<AppSettings> object2)
+        {
+            this.object1 = object1;
+            this.object2 = object2;
         }
 
         [HttpGet]
