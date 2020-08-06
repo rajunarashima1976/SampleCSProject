@@ -8,12 +8,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-//using SampleCSWebProject.Models;
-//using SampleCSWebProject.ModelsDTO;
-//using SampleCSWebProject.Comman;
-using SampleAssocaiteCode.Models;
-using SampleAssocaiteCode.EntityModel;
-using SampleAssocaiteCode.Common;
+using SampleCSWebProject.Models;
+using SampleCSWebProject.ModelsDTO;
+using SampleCSWebProject.Comman;
 using Microsoft.AspNetCore.Http;
 
 namespace SampleCSWebProject.Controllers
